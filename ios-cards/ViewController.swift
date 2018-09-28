@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVFoundation
+
 
 extension CGFloat {
     func toPixels(_ rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) -> Int {
@@ -17,32 +19,39 @@ extension CGFloat {
 
 class ViewController: UIViewController {
 
-    var deck = [  "🥑" ,"🌽" ,
-                  "🌶" ,"🥕" ,
-                  "🥒" ,"🍆" ,
-                  "🥔" ,"🍋" ]
+    var deck = [
+        "🥑" ,"🌽" , "🌶" ,"🥕" ,
+        "🥒" ,"🍆" , "🥔" ,"🍋" ,
+        "🍎" ,"🍊" , "🍉" ,"🍏" ,
+        "🍓" ,"🍒" , "🥝" ,"🍍"
+    ]
     var cards = [ String ]()
     let emptyCard = "🃏"
     var values = [String]()
     var level = 0
     let cardsHorizontalLevel = [2, 2, 3, 4, 4, 5]
-    let cardsVerticalLevel =   [2, 3, 4, 4, 6, 6]
+    let cardsVerticalLevel =   [2, 3, 4, 4, 5, 6]
     
     
     var emptyButton = UIButton()
     var lastButton = UIButton()
+    
     
     var opened = false
     var cardsHorizontal = 3
     var cardsVertical = 4
     let background = UIColor.gray
     var cardsLeft = 0
+    var seconds = 0
+    var incr = 0
+    var totalSeconds = 0
     var loaded = false
     var buttons = [UIButton]()
     
-    
+    @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var appView: UIScrollView!
     @IBOutlet weak var gameButton: UIButton!
+    @IBOutlet weak var audioSwitch: UISwitch!
     
     
     
@@ -52,10 +61,17 @@ class ViewController: UIViewController {
         
         lastButton.setTitle(emptyCard, for: .normal)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.createButtons()
-        }
         
+        counter()
+        
+    }
+    
+    func counter(){
+        seconds += incr
+        timerLabel.text = "⏱ \(seconds)s"
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.counter()
+        }
     }
     
     func shuffleCards(){
@@ -102,6 +118,7 @@ class ViewController: UIViewController {
     
     func createButtons(){
         self.shuffleCards()
+        self.gameButton.setTitle("Restart Level \(level+1)", for: UIControlState.normal)
         
         let padding = 10
         let screenSize = appView.bounds
@@ -134,6 +151,18 @@ class ViewController: UIViewController {
         }
         
         loaded = true
+        incr = 1
+        
+    }
+    
+    func playSound(){
+        if (!audioSwitch.isOn){
+            return
+        }
+        // create a sound ID, in this case its the tweet sound.
+        let systemSoundID: SystemSoundID = 1016
+        // to play sound
+        AudioServicesPlaySystemSound (systemSoundID)
     }
     
     @IBAction func gameClick(_ sender: Any) {
@@ -143,6 +172,7 @@ class ViewController: UIViewController {
         }
         buttons.removeAll()
         createButtons()
+        seconds = 0
     }
     
     
@@ -182,11 +212,20 @@ class ViewController: UIViewController {
                     button2.isHidden = true
                     self.opened = false
                     self.cardsLeft -=  2
-                    if (self.cardsLeft == 0){
+                    if (self.level == self.cardsHorizontalLevel.count - 1){
+                        self.playSound()
+                        self.level = 0
+                        self.incr = 0
+                        self.gameButton.setTitle("Start Again", for: UIControlState.normal)
+                        
+                    }
+                    else if (self.cardsLeft == 0){
                         self.level += 1
+                        self.incr = 0
                         self.gameButton.setTitle("Next Level", for: UIControlState.normal)
                     }
                 }
+                playSound()
                 
             }
             lastButton = emptyButton

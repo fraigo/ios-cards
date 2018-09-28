@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,22 +29,53 @@
                                     <action selector="gameClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VzZ-oX-Mcl"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="⏱ 0 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VpZ-58-DIQ">
+                                <rect key="frame" x="23" y="510" width="60" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bVu-qq-lyR">
+                                <rect key="frame" x="247" y="504" width="49" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Sound" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sq2-PE-9bX">
+                                <rect key="frame" x="247.5" y="541" width="49.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTh-eL-ExT">
+                                <rect key="frame" x="25" y="541" width="38" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="VpZ-58-DIQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="1We-3y-spe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Po6-ho-Z8z" secondAttribute="bottom" constant="40" id="If0-33-52w"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bVu-qq-lyR" secondAttribute="bottom" constant="33" id="OIo-s6-f1o"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7l7-go-iON" secondAttribute="trailing" constant="20" id="P7u-e2-NmW"/>
                             <constraint firstItem="7l7-go-iON" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Qx7-nR-aA0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bVu-qq-lyR" secondAttribute="trailing" constant="20" id="cta-lT-dco"/>
                             <constraint firstItem="7l7-go-iON" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="hzg-02-Nyv"/>
+                            <constraint firstItem="bTh-eL-ExT" firstAttribute="top" secondItem="VpZ-58-DIQ" secondAttribute="bottom" constant="8" id="isA-9s-mjq"/>
                             <constraint firstItem="Po6-ho-Z8z" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="n0a-Jr-w7u"/>
+                            <constraint firstItem="sq2-PE-9bX" firstAttribute="top" secondItem="bVu-qq-lyR" secondAttribute="bottom" constant="8" id="nNb-6w-pcF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sq2-PE-9bX" secondAttribute="trailing" constant="23" id="ok7-uA-G08"/>
                             <constraint firstItem="7l7-go-iON" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="pQI-1t-nok"/>
+                            <constraint firstItem="bTh-eL-ExT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="wD3-5j-60M"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7l7-go-iON" secondAttribute="bottom" constant="100" id="y35-6I-5ID"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="VpZ-58-DIQ" secondAttribute="bottom" constant="37" id="zUW-kY-tnZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="appView" destination="7l7-go-iON" id="TPu-fa-hhh"/>
+                        <outlet property="audioSwitch" destination="bVu-qq-lyR" id="Zlh-EU-y7G"/>
                         <outlet property="gameButton" destination="Po6-ho-Z8z" id="8Zd-Gm-lOd"/>
+                        <outlet property="timerLabel" destination="VpZ-58-DIQ" id="CId-qb-3ed"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
