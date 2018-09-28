@@ -17,9 +17,35 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7l7-go-iON">
+                                <rect key="frame" x="20" y="40" width="280" height="428"/>
+                                <color key="backgroundColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="0.46068992077464788" colorSpace="custom" customColorSpace="sRGB"/>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Po6-ho-Z8z">
+                                <rect key="frame" x="88" y="505" width="134" height="30"/>
+                                <state key="normal" title="New Game"/>
+                                <connections>
+                                    <action selector="gameClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VzZ-oX-Mcl"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Po6-ho-Z8z" secondAttribute="bottom" constant="40" id="If0-33-52w"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7l7-go-iON" secondAttribute="trailing" constant="20" id="P7u-e2-NmW"/>
+                            <constraint firstItem="7l7-go-iON" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Qx7-nR-aA0"/>
+                            <constraint firstItem="7l7-go-iON" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="hzg-02-Nyv"/>
+                            <constraint firstItem="Po6-ho-Z8z" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="n0a-Jr-w7u"/>
+                            <constraint firstItem="7l7-go-iON" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="pQI-1t-nok"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7l7-go-iON" secondAttribute="bottom" constant="100" id="y35-6I-5ID"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="appView" destination="7l7-go-iON" id="TPu-fa-hhh"/>
+                        <outlet property="gameButton" destination="Po6-ho-Z8z" id="8Zd-Gm-lOd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
