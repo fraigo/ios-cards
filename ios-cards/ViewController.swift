@@ -19,12 +19,9 @@ extension CGFloat {
 
 class ViewController: UIViewController {
 
-    var deck = [
-        "🥑" ,"🌽" , "🌶" ,"🥕" ,
-        "🥒" ,"🍆" , "🥔" ,"🍋" ,
-        "🍎" ,"🍊" , "🍉" ,"🍏" ,
-        "🍓" ,"🍒" , "🥝" ,"🍍"
-    ]
+    
+    var decks: [[ String ]] = [[String]]()
+    var currentDeck = [ String ]()
     var cards = [ String ]()
     let emptyCard = "🃏"
     var values = [String]()
@@ -64,10 +61,20 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         lastButton.setTitle(emptyCard, for: .normal)
         
-        
+        decks.append([
+            "🥑" ,"🌽" , "🌶" ,"🥕" ,
+            "🥒" ,"🍆" , "🥔" ,"🍋" ,
+            "🍎" ,"🍊" , "🍉" ,"🍏" ,
+            "🍓" ,"🍒" , "🥝" ,"🍍"
+        ])
+        decks.append([
+            "😍" ,"😜" , "😎" ,"😰" ,
+            "😃" ,"😴" , "😱" ,"🤔" ,
+            "😵" ,"🤠" , "🤮" ,"🤕" ,
+            "😭" ,"😐" , "🤧" ,"🤯"
+        ])
         counter()
         
     }
@@ -81,13 +88,16 @@ class ViewController: UIViewController {
     }
     
     func shuffleCards(){
+        
+        let deckNum = Int(arc4random_uniform(UInt32(decks.count)))
+        currentDeck = decks[deckNum]
         cardsHorizontal = cardsHorizontalLevel[level]
         cardsVertical = cardsVerticalLevel[level] 
         cardsLeft = cardsHorizontal*cardsVertical
         cards.removeAll()
         for x in 0..<(cardsLeft/2){
-            cards.append(deck[x])
-            cards.append(deck[x])
+            cards.append(currentDeck[x])
+            cards.append(currentDeck[x])
         }
         values = cards
         for idx in 0..<values.count
@@ -131,28 +141,17 @@ class ViewController: UIViewController {
         cardCounter.text = "🃏 \(flippedCards)"
         
         
-        let padding = 10
-        let screenSize = appView.bounds
-        let screenWidth = screenSize.width.toPixels()
-        let screenHeight = screenSize.height.toPixels()
-        
-        
-        let width = (screenWidth - (padding * 5)) / cardsHorizontal
-        let height = (screenHeight - (padding * 5)) / cardsVertical
-        
-        
-        
         for x in 0..<cardsHorizontal{
             for y in 0..<cardsVertical{
                 var button : UIButton
-                let rect = CGRect(x: x * (width + padding) + padding, y: y * (height + padding) + padding, width: width, height: height)
+                let rect = CGRect(x: x * 50, y: y * 50, width: 50, height: 50)
                 
                 button = UIButton(frame: rect)
                 button.backgroundColor = background
                 button.setTitle(emptyCard, for: .normal)
                 button.addTarget(self, action: #selector(buttonClick), for: .touchUpInside)
                 button.titleLabel?.font = UIFont(name: (button.titleLabel?.font.fontName)!,
-                                                 size: CGFloat( min(width,height)))!
+                                                 size: CGFloat( min(50,50)))!
                 button.tag = x + y * cardsHorizontal
                 appView.addSubview(button)
                 buttons.append(button)
@@ -160,6 +159,8 @@ class ViewController: UIViewController {
                 
             }
         }
+        
+        resizeButtons()
         
         loaded = true
         incr = 1
@@ -191,7 +192,6 @@ class ViewController: UIViewController {
     
     
     @IBAction func buttonClick(_ currentCard: UIButton) {
-        NSLog("TAG \(currentCard.tag)")
         let label  = values[currentCard.tag]
         if (currentCard.currentTitle != emptyCard){
             NSLog("Opened!")
@@ -233,7 +233,7 @@ class ViewController: UIViewController {
                     self.opened = false
                     self.cardsLeft -=  2
                     if (self.level == self.cardsHorizontalLevel.count - 1){
-                        self.bigLabel.text = ("Good Job !!")
+                        self.bigLabel.text = ("You finished !!")
                         self.gameButton.isSelected = true
                         self.playSound()
                         self.level = 0
