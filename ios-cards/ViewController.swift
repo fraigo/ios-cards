@@ -42,6 +42,8 @@ class ViewController: UIViewController {
     var cardsVertical = 4
     let background = UIColor.gray
     var cardsLeft = 0
+    var openedCards = 0
+    var flippedCards = 0
     var seconds = 0
     var incr = 0
     var totalSeconds = 0
@@ -49,9 +51,13 @@ class ViewController: UIViewController {
     var buttons = [UIButton]()
     
     @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var cardCounter: UILabel!
+    
     @IBOutlet weak var appView: UIScrollView!
     @IBOutlet weak var gameButton: UIButton!
     @IBOutlet weak var audioSwitch: UISwitch!
+    
+    @IBOutlet weak var bigLabel: UILabel!
     
     
     
@@ -119,6 +125,11 @@ class ViewController: UIViewController {
     func createButtons(){
         self.shuffleCards()
         self.gameButton.setTitle("Restart Level \(level+1)", for: UIControlState.normal)
+        self.gameButton.isSelected = false
+        self.bigLabel.text = ("")
+        self.flippedCards = 0
+        cardCounter.text = "🃏 \(flippedCards)"
+        
         
         let padding = 10
         let screenSize = appView.bounds
@@ -168,7 +179,10 @@ class ViewController: UIViewController {
     @IBAction func gameClick(_ sender: Any) {
         let subViews = appView.subviews
         for subview in subViews{
-            subview.removeFromSuperview()
+            if (subview != bigLabel){
+                subview.removeFromSuperview()
+            }
+            
         }
         buttons.removeAll()
         createButtons()
@@ -176,19 +190,25 @@ class ViewController: UIViewController {
     }
     
     
-    @IBAction func buttonClick(_ sender: UIButton) {
-        NSLog("TAG \(sender.tag)")
-        let label  = values[sender.tag]
-        if (sender.currentTitle != emptyCard){
+    @IBAction func buttonClick(_ currentCard: UIButton) {
+        NSLog("TAG \(currentCard.tag)")
+        let label  = values[currentCard.tag]
+        if (currentCard.currentTitle != emptyCard){
             NSLog("Opened!")
             return
         }
-        sender.setTitle( label, for: UIControlState.normal)
-        if (lastButton.currentTitle != emptyCard){
+        openedCards += 1
+        flippedCards += 1
+        cardCounter.text = "🃏 \(flippedCards)"
+        
+        
+        currentCard.setTitle( label, for: UIControlState.normal)
+        if (openedCards == 2){
             self.opened = true
             let button1 = self.lastButton
-            let button2 = sender
+            let button2 = currentCard
             NSLog("Second!")
+            openedCards = 0
             
             if (label != lastButton.currentTitle){
                 NSLog("Missed!")
@@ -213,6 +233,8 @@ class ViewController: UIViewController {
                     self.opened = false
                     self.cardsLeft -=  2
                     if (self.level == self.cardsHorizontalLevel.count - 1){
+                        self.bigLabel.text = ("Good Job !!")
+                        self.gameButton.isSelected = true
                         self.playSound()
                         self.level = 0
                         self.incr = 0
@@ -220,6 +242,8 @@ class ViewController: UIViewController {
                         
                     }
                     else if (self.cardsLeft == 0){
+                        self.bigLabel.text = ("Good Job !!")
+                        self.gameButton.isSelected = true
                         self.level += 1
                         self.incr = 0
                         self.gameButton.setTitle("Next Level", for: UIControlState.normal)
@@ -231,7 +255,7 @@ class ViewController: UIViewController {
             lastButton = emptyButton
             return
         }else{
-            lastButton = sender
+            lastButton = currentCard
         }
         
     }
