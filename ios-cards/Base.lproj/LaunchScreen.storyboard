@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,11 +23,27 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By Francisco Igor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0u-G2-IWl">
+                                <rect key="frame" x="121" y="605" width="132.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Memory Cards" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Gb-oy-jx8">
+                                <rect key="frame" x="86" y="545" width="202" height="38.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="I0u-G2-IWl" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="4QK-I4-4XM"/>
+                            <constraint firstItem="7Gb-oy-jx8" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="JEc-am-8RV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="I0u-G2-IWl" secondAttribute="bottom" constant="41" id="RdP-JU-3we"/>
                             <constraint firstItem="Pgs-FK-dBa" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="dHJ-xN-VjK"/>
                             <constraint firstItem="Pgs-FK-dBa" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="nJB-ID-drW"/>
+                            <constraint firstItem="I0u-G2-IWl" firstAttribute="top" secondItem="7Gb-oy-jx8" secondAttribute="bottom" constant="7.5" id="oGo-vE-ZCe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

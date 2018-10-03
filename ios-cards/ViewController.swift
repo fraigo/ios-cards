@@ -20,95 +20,45 @@ extension CGFloat {
 class ViewController: UIViewController {
 
     
-    var decks: [[ String ]] = [[String]]()
-    var currentDeck = [ String ]()
-    var cards = [ String ]()
-    let emptyCard = "🃏"
-    var values = [String]()
-    var level = 0
-    let cardsHorizontalLevel = [2, 2, 3, 4, 4, 5]
-    let cardsVerticalLevel =   [2, 3, 4, 4, 5, 6]
-    
     
     var emptyButton = UIButton()
     var lastButton = UIButton()
     
-    
-    var opened = false
-    var cardsHorizontal = 3
-    var cardsVertical = 4
     let background = UIColor.gray
-    var cardsLeft = 0
-    var openedCards = 0
-    var flippedCards = 0
-    var seconds = 0
-    var incr = 0
-    var totalSeconds = 0
-    var loaded = false
+    
     var buttons = [UIButton]()
+    
+    var game : Game = Game()
     
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var cardCounter: UILabel!
-    
     @IBOutlet weak var appView: UIScrollView!
     @IBOutlet weak var gameButton: UIButton!
     @IBOutlet weak var audioSwitch: UISwitch!
-    
     @IBOutlet weak var bigLabel: UILabel!
+    @IBOutlet weak var totalTime: UILabel!
+    @IBOutlet weak var totalCardsOpened: UILabel!
     
+    required init(coder decoder: NSCoder) {
+       super.init(coder: decoder)!
+       
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        lastButton.setTitle(emptyCard, for: .normal)
-        
-        decks.append([
-            "🥑" ,"🌽" , "🌶" ,"🥕" ,
-            "🥒" ,"🍆" , "🥔" ,"🍋" ,
-            "🍎" ,"🍊" , "🍉" ,"🍏" ,
-            "🍓" ,"🍒" , "🥝" ,"🍍"
-        ])
-        decks.append([
-            "😍" ,"😜" , "😎" ,"😰" ,
-            "😃" ,"😴" , "😱" ,"🤔" ,
-            "😵" ,"🤠" , "🤮" ,"🤕" ,
-            "😭" ,"😐" , "🤧" ,"🤯"
-        ])
-        counter()
+        lastButton.setTitle(game.EMPTY_CARD, for: .normal)
+        bigLabel.text = ("Memory Cards")
+        bigLabel.isHidden = false
+        self.gameButton.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.gameButton.isHidden = false
+        }
+        game.counter(timerLabel: timerLabel)
         
     }
     
-    func counter(){
-        seconds += incr
-        timerLabel.text = "⏱ \(seconds)s"
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.counter()
-        }
-    }
     
-    func shuffleCards(){
-        
-        let deckNum = Int(arc4random_uniform(UInt32(decks.count)))
-        currentDeck = decks[deckNum]
-        cardsHorizontal = cardsHorizontalLevel[level]
-        cardsVertical = cardsVerticalLevel[level] 
-        cardsLeft = cardsHorizontal*cardsVertical
-        cards.removeAll()
-        for x in 0..<(cardsLeft/2){
-            cards.append(currentDeck[x])
-            cards.append(currentDeck[x])
-        }
-        values = cards
-        for idx in 0..<values.count
-        {
-            let rand = Int(arc4random_uniform(UInt32(cards.count)))
-            
-            values[idx] = (cards[rand])
-            
-            cards.remove(at: rand)
-        }
-    }
     
     func resizeButtons(){
         
@@ -117,14 +67,14 @@ class ViewController: UIViewController {
         let screenWidth = screenSize.width.toPixels()
         let screenHeight = screenSize.height.toPixels()
         
-        let width = (screenWidth - (padding * (cardsHorizontal+1))) / cardsHorizontal
-        let height = (screenHeight - (padding * (cardsVertical+1))) / cardsVertical
+        let width = (screenWidth - (padding * (game.cardsHorizontal+1))) / game.cardsHorizontal
+        let height = (screenHeight - (padding * (game.cardsVertical+1))) / game.cardsVertical
         
         NSLog("size \(screenWidth) x \(screenHeight) => \(width) x \(height) ")
         var x = 0, y = 0
         for button in buttons {
-            x = button.tag % cardsHorizontal
-            y = Int(floor(Double(button.tag) / Double(cardsHorizontal)))
+            x = button.tag % game.cardsHorizontal
+            y = Int(floor(Double(button.tag) / Double(game.cardsHorizontal)))
             let rect = CGRect(x: x * (width + padding) + padding, y: y * (height + padding) + padding, width: width, height: height)
             button.frame = rect
             button.titleLabel?.font = UIFont(name: (button.titleLabel?.font.fontName)!,
@@ -133,26 +83,26 @@ class ViewController: UIViewController {
     }
     
     func createButtons(){
-        self.shuffleCards()
-        self.gameButton.setTitle("Restart Level \(level+1)", for: UIControlState.normal)
+        game.shuffleCards()
+        
+        self.gameButton.setTitle("Restart Level \(game.getLevel())", for: UIControlState.normal)
         self.gameButton.isSelected = false
         self.bigLabel.text = ("")
-        self.flippedCards = 0
-        cardCounter.text = "🃏 \(flippedCards)"
+        cardCounter.text = "🃏 \(game.flippedCards)"
         
         
-        for x in 0..<cardsHorizontal{
-            for y in 0..<cardsVertical{
+        for x in 0..<game.cardsHorizontal{
+            for y in 0..<game.cardsVertical{
                 var button : UIButton
                 let rect = CGRect(x: x * 50, y: y * 50, width: 50, height: 50)
                 
                 button = UIButton(frame: rect)
                 button.backgroundColor = background
-                button.setTitle(emptyCard, for: .normal)
+                button.setTitle(game.EMPTY_CARD, for: .normal)
                 button.addTarget(self, action: #selector(buttonClick), for: .touchUpInside)
                 button.titleLabel?.font = UIFont(name: (button.titleLabel?.font.fontName)!,
                                                  size: CGFloat( min(50,50)))!
-                button.tag = x + y * cardsHorizontal
+                button.tag = x + y * game.cardsHorizontal
                 appView.addSubview(button)
                 buttons.append(button)
                 
@@ -161,9 +111,9 @@ class ViewController: UIViewController {
         }
         
         resizeButtons()
+        self.totalTime.isHidden = true
+        self.totalCardsOpened.isHidden = true
         
-        loaded = true
-        incr = 1
         
     }
     
@@ -180,46 +130,48 @@ class ViewController: UIViewController {
     @IBAction func gameClick(_ sender: Any) {
         let subViews = appView.subviews
         for subview in subViews{
-            if (subview != bigLabel){
+            if (![bigLabel, totalCardsOpened, totalTime].contains(subview)){
                 subview.removeFromSuperview()
             }
             
         }
+        self.totalTime.isHidden = false
+        self.totalCardsOpened.isHidden = false
         buttons.removeAll()
         createButtons()
-        seconds = 0
+        
     }
     
     
     @IBAction func buttonClick(_ currentCard: UIButton) {
-        let label  = values[currentCard.tag]
-        if (currentCard.currentTitle != emptyCard){
+        let label  = game.getLabel(currentCard.tag)
+        if (currentCard.currentTitle != game.EMPTY_CARD){
             NSLog("Opened!")
             return
         }
-        openedCards += 1
-        flippedCards += 1
-        cardCounter.text = "🃏 \(flippedCards)"
+        game.openedCards += 1
+        game.flippedCards += 1
+        cardCounter.text = "🃏 \(game.flippedCards)"
         
         
         currentCard.setTitle( label, for: UIControlState.normal)
-        if (openedCards == 2){
-            self.opened = true
+        if (game.openedCards == 2){
+            game.opened = true
             let button1 = self.lastButton
             let button2 = currentCard
             NSLog("Second!")
-            openedCards = 0
+            game.openedCards = 0
             
             if (label != lastButton.currentTitle){
                 NSLog("Missed!")
                 button1.backgroundColor = UIColor.orange
                 button2.backgroundColor = UIColor.orange
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    button1.setTitle(self.emptyCard, for: UIControlState.normal)
-                    button2.setTitle(self.emptyCard, for: UIControlState.normal)
+                    button1.setTitle(self.game.EMPTY_CARD, for: UIControlState.normal)
+                    button2.setTitle(self.game.EMPTY_CARD, for: UIControlState.normal)
                     button1.backgroundColor = self.background
                     button2.backgroundColor = self.background
-                    self.opened = false
+                    self.game.opened = false
                 }
                 lastButton = emptyButton
                 return
@@ -230,22 +182,32 @@ class ViewController: UIViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     button1.isHidden = true
                     button2.isHidden = true
-                    self.opened = false
-                    self.cardsLeft -=  2
-                    if (self.level == self.cardsHorizontalLevel.count - 1 && self.cardsLeft == 0){
+                    self.game.opened = false
+                    self.game.cardsLeft -=  2
+                    if (self.game.isGameFinished()){
                         self.bigLabel.text = ("You finished !! 🎉")
                         self.gameButton.isSelected = true
                         self.playSound()
-                        self.level = 0
-                        self.incr = 0
+                        self.game.restartGame()
+                        self.totalTime.isHidden = false
+                        self.totalCardsOpened.isHidden = false
+                        self.totalTime.text = "Total ⏱ \(self.game.totalGameSeconds) sec. "
+                        self.totalCardsOpened.text = "Total 🃏 \(self.game.totalCardsOpened) cards"
+                        
                         self.gameButton.setTitle("Start Again", for: UIControlState.normal)
                         
                     }
-                    else if (self.cardsLeft == 0){
+                    else if (self.game.isLevelFinished()){
                         self.bigLabel.text = ("Good Job !!")
                         self.gameButton.isSelected = true
-                        self.level += 1
-                        self.incr = 0
+                        
+                        self.game.nextLevel()
+                        
+                        self.totalTime.isHidden = false
+                        self.totalCardsOpened.isHidden = false
+                        self.totalTime.text = "Total ⏱ \(self.game.totalGameSeconds) sec. "
+                        self.totalCardsOpened.text = "Total 🃏 \(self.game.totalCardsOpened) cards"
+                        
                         self.gameButton.setTitle("Next Level", for: UIControlState.normal)
                     }
                 }

@@ -20,9 +20,21 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7l7-go-iON">
                                 <rect key="frame" x="20" y="40" width="280" height="428"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qew-QQ-Lbs">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qew-QQ-Lbs">
                                         <rect key="frame" x="140.5" y="214.5" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⏱ 0 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esm-hO-LsU">
+                                        <rect key="frame" x="115.5" y="351" width="49.5" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🃏 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccL-rZ-LDz">
+                                        <rect key="frame" x="118" y="385.5" width="45" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -30,12 +42,16 @@
                                 <color key="backgroundColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="0.46068992077464788" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Qew-QQ-Lbs" firstAttribute="centerY" secondItem="7l7-go-iON" secondAttribute="centerY" id="Khe-kl-fkF"/>
+                                    <constraint firstItem="ccL-rZ-LDz" firstAttribute="top" secondItem="esm-hO-LsU" secondAttribute="bottom" constant="8" id="Omt-ke-cNe"/>
+                                    <constraint firstItem="esm-hO-LsU" firstAttribute="centerX" secondItem="7l7-go-iON" secondAttribute="centerX" id="RE2-E4-Npo"/>
+                                    <constraint firstItem="ccL-rZ-LDz" firstAttribute="centerX" secondItem="7l7-go-iON" secondAttribute="centerX" id="a8w-rZ-8jz"/>
                                     <constraint firstItem="Qew-QQ-Lbs" firstAttribute="centerX" secondItem="7l7-go-iON" secondAttribute="centerX" id="uEZ-Ah-m3t"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Po6-ho-Z8z">
-                                <rect key="frame" x="88" y="496" width="134" height="62"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Po6-ho-Z8z">
+                                <rect key="frame" x="88" y="496" width="134" height="61"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
+                                <inset key="titleEdgeInsets" minX="-2" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="New Game"/>
                                 <connections>
                                     <action selector="gameClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VzZ-oX-Mcl"/>
@@ -79,6 +95,7 @@
                             <constraint firstItem="sq2-PE-9bX" firstAttribute="top" secondItem="bVu-qq-lyR" secondAttribute="bottom" constant="8" id="nNb-6w-pcF"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sq2-PE-9bX" secondAttribute="trailing" constant="23" id="ok7-uA-G08"/>
                             <constraint firstItem="7l7-go-iON" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="pQI-1t-nok"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ccL-rZ-LDz" secondAttribute="bottom" constant="116" id="sWW-kR-h3L"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7l7-go-iON" secondAttribute="bottom" constant="100" id="y35-6I-5ID"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -90,6 +107,8 @@
                         <outlet property="cardCounter" destination="bTh-eL-ExT" id="kur-N7-phl"/>
                         <outlet property="gameButton" destination="Po6-ho-Z8z" id="8Zd-Gm-lOd"/>
                         <outlet property="timerLabel" destination="VpZ-58-DIQ" id="CId-qb-3ed"/>
+                        <outlet property="totalCardsOpened" destination="ccL-rZ-LDz" id="ciI-oJ-lcQ"/>
+                        <outlet property="totalTime" destination="esm-hO-LsU" id="DC5-Ne-ob4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
