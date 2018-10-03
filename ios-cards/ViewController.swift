@@ -232,8 +232,8 @@ class ViewController: UIViewController {
                     button2.isHidden = true
                     self.opened = false
                     self.cardsLeft -=  2
-                    if (self.level == self.cardsHorizontalLevel.count - 1){
-                        self.bigLabel.text = ("You finished !!")
+                    if (self.level == self.cardsHorizontalLevel.count - 1 && self.cardsLeft == 0){
+                        self.bigLabel.text = ("You finished !! 🎉")
                         self.gameButton.isSelected = true
                         self.playSound()
                         self.level = 0
