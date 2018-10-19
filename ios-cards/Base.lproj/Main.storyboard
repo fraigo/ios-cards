@@ -22,20 +22,20 @@
                                 <subviews>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qew-QQ-Lbs">
                                         <rect key="frame" x="140.5" y="214.5" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⏱ 0 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esm-hO-LsU">
-                                        <rect key="frame" x="115.5" y="351" width="49.5" height="26.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <nil key="textColor"/>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level ⏱ 0 🃏 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esm-hO-LsU">
+                                        <rect key="frame" x="68" y="358" width="145" height="25.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <color key="textColor" red="0.07826264215160543" green="0.034526465042360677" blue="0.58927704015544036" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🃏 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccL-rZ-LDz">
-                                        <rect key="frame" x="118" y="385.5" width="45" height="26.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <nil key="textColor"/>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best  ⏱ 0 🃏 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccL-rZ-LDz">
+                                        <rect key="frame" x="79" y="391.5" width="123" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.58927704015544036" green="0.0" blue="0.013722111672109523" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -50,7 +50,7 @@
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Po6-ho-Z8z">
                                 <rect key="frame" x="88" y="496" width="134" height="61"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <inset key="titleEdgeInsets" minX="-2" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="New Game"/>
                                 <connections>
@@ -103,12 +103,12 @@
                     <connections>
                         <outlet property="appView" destination="7l7-go-iON" id="TPu-fa-hhh"/>
                         <outlet property="audioSwitch" destination="bVu-qq-lyR" id="Zlh-EU-y7G"/>
+                        <outlet property="bestMarks" destination="ccL-rZ-LDz" id="ciI-oJ-lcQ"/>
                         <outlet property="bigLabel" destination="Qew-QQ-Lbs" id="Pdi-gy-KnB"/>
                         <outlet property="cardCounter" destination="bTh-eL-ExT" id="kur-N7-phl"/>
+                        <outlet property="currentMarks" destination="esm-hO-LsU" id="DC5-Ne-ob4"/>
                         <outlet property="gameButton" destination="Po6-ho-Z8z" id="8Zd-Gm-lOd"/>
                         <outlet property="timerLabel" destination="VpZ-58-DIQ" id="CId-qb-3ed"/>
-                        <outlet property="totalCardsOpened" destination="ccL-rZ-LDz" id="ciI-oJ-lcQ"/>
-                        <outlet property="totalTime" destination="esm-hO-LsU" id="DC5-Ne-ob4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -36,8 +36,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var gameButton: UIButton!
     @IBOutlet weak var audioSwitch: UISwitch!
     @IBOutlet weak var bigLabel: UILabel!
-    @IBOutlet weak var totalTime: UILabel!
-    @IBOutlet weak var totalCardsOpened: UILabel!
+    @IBOutlet weak var currentMarks: UILabel!
+    @IBOutlet weak var bestMarks: UILabel!
     
     required init(coder decoder: NSCoder) {
        super.init(coder: decoder)!
@@ -111,8 +111,8 @@ class ViewController: UIViewController {
         }
         
         resizeButtons()
-        self.totalTime.isHidden = true
-        self.totalCardsOpened.isHidden = true
+        self.currentMarks.isHidden = true
+        self.bestMarks.isHidden = true
         
         
     }
@@ -130,13 +130,13 @@ class ViewController: UIViewController {
     @IBAction func gameClick(_ sender: Any) {
         let subViews = appView.subviews
         for subview in subViews{
-            if (![bigLabel, totalCardsOpened, totalTime].contains(subview)){
+            if (![bigLabel, bestMarks, currentMarks].contains(subview)){
                 subview.removeFromSuperview()
             }
             
         }
-        self.totalTime.isHidden = false
-        self.totalCardsOpened.isHidden = false
+        self.currentMarks.isHidden = false
+        self.bestMarks.isHidden = false
         buttons.removeAll()
         createButtons()
         
@@ -156,6 +156,7 @@ class ViewController: UIViewController {
         
         currentCard.setTitle( label, for: UIControlState.normal)
         if (game.openedCards == 2){
+            animate(currentCard)
             game.opened = true
             let button1 = self.lastButton
             let button2 = currentCard
@@ -188,11 +189,15 @@ class ViewController: UIViewController {
                         self.bigLabel.text = ("You finished !! 🎉")
                         self.gameButton.isSelected = true
                         self.playSound()
+                        self.currentMarks.isHidden = false
+                        self.bestMarks.isHidden = false
+                        self.game.nextLevel()
+                        self.currentMarks.text = "Level ⏱ \(self.game.seconds) sec. 🃏 \(self.game.flippedCards) cards"
+                        self.bestMarks.text = "Best  ⏱ \(self.game.bestLevelSeconds) sec. 🃏 \(self.game.bestLevelCards) cards"
+                        if (self.game.seconds == self.game.bestLevelSeconds || self.game.flippedCards == self.game.bestLevelCards){
+                            self.bigLabel.text = ("New Record !!")
+                        }
                         self.game.restartGame()
-                        self.totalTime.isHidden = false
-                        self.totalCardsOpened.isHidden = false
-                        self.totalTime.text = "Total ⏱ \(self.game.totalGameSeconds) sec. "
-                        self.totalCardsOpened.text = "Total 🃏 \(self.game.totalCardsOpened) cards"
                         
                         self.gameButton.setTitle("Start Again", for: UIControlState.normal)
                         
@@ -203,11 +208,13 @@ class ViewController: UIViewController {
                         
                         self.game.nextLevel()
                         
-                        self.totalTime.isHidden = false
-                        self.totalCardsOpened.isHidden = false
-                        self.totalTime.text = "Total ⏱ \(self.game.totalGameSeconds) sec. "
-                        self.totalCardsOpened.text = "Total 🃏 \(self.game.totalCardsOpened) cards"
-                        
+                        self.currentMarks.isHidden = false
+                        self.bestMarks.isHidden = false
+                        self.currentMarks.text = "Level ⏱ \(self.game.seconds) sec. 🃏 \(self.game.flippedCards) cards"
+                        self.bestMarks.text = "Best  ⏱ \(self.game.bestLevelSeconds) sec. 🃏 \(self.game.bestLevelCards) cards"
+                        if (self.game.seconds == self.game.bestLevelSeconds || self.game.flippedCards == self.game.bestLevelCards){
+                            self.bigLabel.text = ("New Record !!")
+                        }
                         self.gameButton.setTitle("Next Level", for: UIControlState.normal)
                     }
                 }
@@ -218,8 +225,24 @@ class ViewController: UIViewController {
             return
         }else{
             lastButton = currentCard
+            animate(currentCard)
         }
         
+    }
+    
+    func animate(_ currentCard: UIButton){
+        UIView.animate(withDuration: 0.1, animations: {
+            currentCard.frame.origin.x += currentCard.frame.width/4
+            currentCard.frame.size = CGSize(width: currentCard.frame.width/2, height: currentCard.frame.height)
+            
+        }){ (completed) in
+            
+            
+            UIView.animate(withDuration: 0.1, animations: {
+                currentCard.frame.size = CGSize(width: currentCard.frame.width * 2, height: currentCard.frame.height)
+                currentCard.frame.origin.x -= currentCard.frame.width/4
+            })
+        }
     }
     
     override func didReceiveMemoryWarning() {

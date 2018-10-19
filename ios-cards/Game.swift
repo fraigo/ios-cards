@@ -10,6 +10,9 @@ import UIKit
 
 class Game: NSObject {
     
+    let KEY_TOTALCARDS = "maxTotalCards"
+    let KEY_TOTALSECONDS = "maxTotalSeconds"
+    
     var decks: [[ String ]] = [[String]]()
     var cards = [ String ]()
     var currentDeck = [ String ]()
@@ -34,12 +37,18 @@ class Game: NSObject {
     
     var totalCardsOpened = 0
     var totalGameSeconds = 0
-
+    
+    var bestLevelCards = 1000
+    var bestLevelSeconds = 1000
+    
+    var defaults : UserDefaults!
     
     
     override init() {
         super.init()
         createDecks()
+        defaults = UserDefaults.standard
+        
     }
     
     
@@ -118,6 +127,17 @@ class Game: NSObject {
     
     func nextLevel(){
         collect()
+        bestLevelCards = defaults.integer(forKey: KEY_TOTALCARDS + String(level))
+        if (bestLevelCards == 0 || bestLevelCards > flippedCards){
+            bestLevelCards = flippedCards
+            defaults.set(bestLevelCards, forKey: KEY_TOTALCARDS + String(level))
+        }
+        bestLevelSeconds = defaults.integer(forKey: KEY_TOTALSECONDS + String(level))
+        if (bestLevelSeconds == 0 || bestLevelSeconds > seconds){
+            bestLevelSeconds = seconds
+            defaults.set(bestLevelSeconds, forKey: KEY_TOTALSECONDS + String(level))
+        }
+        
         level += 1
         timerIncrement = 0
         
