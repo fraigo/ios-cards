@@ -85,7 +85,8 @@ class ViewController: UIViewController {
     func createButtons(){
         game.shuffleCards()
         
-        self.gameButton.setTitle("Restart Level \(game.getLevel())", for: UIControlState.normal)
+        self.gameButton.setTitle("Restart Level \(game.getLevel())"
+                                 , for: UIControlState.normal)
         self.gameButton.isSelected = false
         self.bigLabel.text = ("")
         cardCounter.text = "🃏 \(game.flippedCards)"
@@ -139,7 +140,6 @@ class ViewController: UIViewController {
         self.bestMarks.isHidden = false
         buttons.removeAll()
         createButtons()
-        
     }
     
     
@@ -216,6 +216,11 @@ class ViewController: UIViewController {
                             self.bigLabel.text = ("New Record !!")
                         }
                         self.gameButton.setTitle("Next Level", for: UIControlState.normal)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                            if (!self.currentMarks.isHidden){
+                                self.gameClick(self)
+                            }
+                        }
                     }
                 }
                 playSound()
